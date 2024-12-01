@@ -14,6 +14,7 @@ function App() {
         <HooksCakeContainer />
         <NewCakeContainer />
       </div>
+      <hr />
       <UserInformation />
     </Provider>
   );

@@ -3,23 +3,40 @@ import {
   USER_REQUEST_SUCCESS,
   USER_REQUEST_ERROR,
 } from "./userActionTypes";
+import axios from "axios";
 
-export const fetchUserRequest = () => {
+const fetchUserRequest = () => {
   return {
     type: USER_REQUEST_FETCH,
   };
 };
 
-export const fetchUserRequestSuccess = (user) => {
+const fetchUserRequestSuccess = (user) => {
   return {
     type: USER_REQUEST_SUCCESS,
     payload: user,
   };
 };
 
-export const fetchUserRequestError = (error) => {
+const fetchUserRequestError = (error) => {
   return {
     type: USER_REQUEST_ERROR,
     payload: error,
+  };
+};
+
+export const fetchUsers = () => {
+  return (dispatch) => {
+    dispatch(fetchUserRequest);
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        const users = response.data;
+        dispatch(fetchUserRequestSuccess(users));
+      })
+      .catch((error) => {
+        const errorMsg = error.message;
+        dispatch(fetchUserRequestError(errorMsg));
+      });
   };
 };
