@@ -8,7 +8,9 @@ const cakeReducer = (state = initialState, action) => {
       return {
         ...state,
         numberOfCake:
-          state.numberOfCake > 0 ? state.numberOfCake - 1 : state.numberOfCake,
+          state.numberOfCake > 0
+            ? state.numberOfCake - action.payload
+            : state.numberOfCake,
       };
     default:
       return state;
